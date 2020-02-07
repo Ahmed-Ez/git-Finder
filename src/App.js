@@ -55,6 +55,7 @@ class App extends React.Component {
   };
 
   render() {
+    //deconstructor
     const { loading, users, alert, user, repos } = this.state;
     return (
       <Router>

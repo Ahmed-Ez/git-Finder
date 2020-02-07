@@ -5,6 +5,7 @@ import { Link } from 'react-router-dom';
 import Repos from '../repos/Repos';
 
 export class User extends Component {
+  
   componentDidMount() {
     this.props.getUser(this.props.match.params.login);
     this.props.getUserRepos(this.props.match.params.login);
