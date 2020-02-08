@@ -11,6 +11,17 @@ import {
   GET_DATA
 } from '../types';
 
+let githubClientId;
+let githubClientSecret;
+
+if (process.env.NODE_ENV !== 'production') {
+  githubClientId = process.env.REACT_APP_GITHUB_CLIENT_ID;
+  githubClientSecret = process.env.REACT_APP_GITHUB_CLIENT_SECRET;
+} else {
+  githubClientId = process.env.GITHUB_CLIENT_ID;
+  githubClientSecret = process.env.GITHUB_CLIENT_SECRET;
+}
+
 const GitState = props => {
   const initialState = {
     users: [],
@@ -24,8 +35,8 @@ const GitState = props => {
   //Get data
   const getData = async () => {
     setLoading();
-    const res = await axios.get(`https://api.github.com/users?client_id=${process.env.REACT_APP_GITHUB_CLIENT_ID}
-      &client_secret=${process.env.REACT_APP_GITHUB_CLIENT_SECRET}`);
+    const res = await axios.get(`https://api.github.com/users?client_id=${githubClientId}
+      &client_secret=${githubClientSecret}`);
     dispatch({
       type: GET_DATA,
       payload: res.data
@@ -35,8 +46,8 @@ const GitState = props => {
   //Search Users
   const searchUsers = async text => {
     setLoading();
-    const res = await axios.get(`https://api.github.com/search/users?q=${text}&client_id=${process.env.REACT_APP_GITHUB_CLIENT_ID}
-        &client_secret=${process.env.REACT_APP_GITHUB_CLIENT_SECRET}`);
+    const res = await axios.get(`https://api.github.com/search/users?q=${text}&client_id=${githubClientId}
+        &client_secret=${githubClientSecret}`);
     dispatch({
       type: SEARCH_USERS,
       payload: res.data.items
@@ -46,8 +57,8 @@ const GitState = props => {
   //GET user
   const getUser = async username => {
     setLoading();
-    const res = await axios.get(`https://api.github.com/users/${username}?client_id=${process.env.REACT_APP_GITHUB_CLIENT_ID}
-    &client_secret=${process.env.REACT_APP_GITHUB_CLIENT_SECRET}`);
+    const res = await axios.get(`https://api.github.com/users/${username}?client_id=${githubClientId}
+    &client_secret=${githubClientSecret}`);
     dispatch({
       type: GET_USER,
       payload: res.data
@@ -57,8 +68,8 @@ const GitState = props => {
   //Get repos
   const getUserRepos = async username => {
     setLoading();
-    const res = await axios.get(`https://api.github.com/users/${username}/repos?per_page=5&sort=created:asc&client_id=${process.env.REACT_APP_GITHUB_CLIENT_ID}
-    &client_secret=${process.env.REACT_APP_GITHUB_CLIENT_SECRET}`);
+    const res = await axios.get(`https://api.github.com/users/${username}/repos?per_page=5&sort=created:asc&client_id=${githubClientId}
+    &client_secret=${githubClientSecret}`);
 
     dispatch({
       type: GET_USER_REBOS,
